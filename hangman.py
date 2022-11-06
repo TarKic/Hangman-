@@ -1,13 +1,14 @@
 import random
-"""Creo que para el TP usamos archivos, y lo que fuimos viendo antes del primer parcial, no sé como incluiría tuplas, o diccionarios. Tuplas, podemos incluirlo como que el usuario ingrese su nombre y si adivina guardamos en una tupla el nombre del usuario y la cant de intentos, y después, comparamos todos los usuarios y vemos quien lo hizo en menos intentos
-x ejemplo (juan, 5) lo comparamos con (gabriel, 2). Lo haria de dos niveles, el nivel facil, que te de la primer letra de la palabra elegida y mas chances , y el avanzado que no te de ninugna pista y tengas menos intentos """
-
 
 def buscaPalabras (): #Cargamos un archivos con palabras y acá, la traemos al programa principal como lista
-    arch = open ("palabras.txt", "rt")
-    palabras = arch.readlines ()
-    arch.close ()
-    return palabras
+    try:
+        arch = open ("palabras.txt", "rt")
+    except IOError:
+        print ("No se pudo abrir el archivo...")
+    else:
+        palabras = arch.readlines ()
+        arch.close ()
+        return palabras
 
 def generaRenglones (a): #Genera la cantidad de _ que tiene la palabra, simplemente un detalle estético
     lista = []
@@ -73,7 +74,7 @@ def dibujaPersona (intentos): # Para dibujar la persona del ahorcado
                   "  |         \n"
                   "__|__\n")
    
-def generaArchivoPuntuacion (tupla):
+def generaArchivoPuntuacion (tupla): 
     archivo = open ("puntuaciones.txt",'wt')
     nombre,puntos = tupla
     puntos = str(puntos)
@@ -84,17 +85,18 @@ def generaArchivoPuntuacion (tupla):
 
 cantidadDeJugadores = int (input ("Ingrese la cantidad de usuarios que jugaran: "))
 yaJugaron = 0
-while (yaJugaron < cantidadDeJugadores):
-    yaJugaron += 1
+while (yaJugaron < cantidadDeJugadores ):
+    nombre = input ("Ingrese el nombre de la persona que jugara: ")
+   
+    yaJugaron += 1 #Sumador para indicar que un jugador comenzó un nuevo juego
+    #Llamado a las funciones requeridas para el funcionamiento del programa
     lista = buscaPalabras ()
     palabra = seleccionaPalabra (lista)
     tablero = generaRenglones (palabra)
     chances = 6
     intentos = 0
     print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
-
-    nombre = input ("Ingrese el nombre de la persona que jugara: ")
-
+    cantidadLetras = len(palabra) - 1
     while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
         esta = False 
         termino = False
@@ -102,28 +104,24 @@ while (yaJugaron < cantidadDeJugadores):
         letra = input ("Ingrese la letra: ")
         for i in range (len(palabra)-1):
             if (palabra[i] == letra):
-                print ("Acertaste...")
                 tablero[i] = letra
-                print (tablero)
                 esta = True
-            palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
-        print (palabra)
+        if (esta == True):
+            print ("Acertaste!")
+        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
+        
 
-        print (palabraAdivinada)
-        for i in range (len(palabra)):
-            if palabra.lower() == palabraAdivinada.lower():
-                print ("Adivinaste!")
-                intentos = 6
-            
-   
         
         if (esta == False): #Aca esta el sumador de intentos
             intentos += 1
             restantes = chances - intentos 
             dibujo = dibujaPersona (intentos)
             print ("Te quedan", restantes,'intentos')
+      
+
 
     datos = (nombre,intentos)
     archivoPuntos = generaArchivoPuntuacion (datos)
-
-    print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
+    if (restantes == 0 or intentos == 6):
+        print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
+    
