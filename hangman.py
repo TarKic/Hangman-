@@ -19,7 +19,6 @@ def seleccionaPalabra (listaImportada): #Busca, aleatoriamente la palabra que se
     palabraAdivinar = listaImportada[random.randint(0,len(lista) - 1)] 
     return palabraAdivinar
 
-
 def dibujaPersona (intentos): # Para dibujar la persona del ahorcado 
     if intentos == 1:
          print("   _____ \n"
@@ -74,46 +73,56 @@ def dibujaPersona (intentos): # Para dibujar la persona del ahorcado
                   "  |         \n"
                   "__|__\n")
    
-    
+def generaArchivoPuntuacion (tupla):
+    archivo = open ("puntuaciones.txt",'wt')
+    nombre,puntos = tupla
+    puntos = str(puntos)
+    archivo.write (nombre + puntos + '\n')
+    archivo.close()
 
 
-lista = buscaPalabras ()
-palabra = seleccionaPalabra (lista)
-tablero = generaRenglones (palabra)
-chances = 6
-intentos = 0
-print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
 
-nombre = input ("Ingrese el nombre de la persona que jugara: ")
+cantidadDeJugadores = int (input ("Ingrese la cantidad de usuarios que jugaran: "))
+yaJugaron = 0
+while (yaJugaron < cantidadDeJugadores):
+    yaJugaron += 1
+    lista = buscaPalabras ()
+    palabra = seleccionaPalabra (lista)
+    tablero = generaRenglones (palabra)
+    chances = 6
+    intentos = 0
+    print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
 
-while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
-    esta = False 
-    termino = False
-    print (tablero) 
-    letra = input ("Ingrese la letra: ")
-    for i in range (len(palabra)-1):
-        if (palabra[i] == letra):
-            print ("Acertaste...")
-            tablero[i] = letra
-            print (tablero)
-            esta = True
-        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
-    print (palabra)
+    nombre = input ("Ingrese el nombre de la persona que jugara: ")
 
+    while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
+        esta = False 
+        termino = False
+        print (tablero) 
+        letra = input ("Ingrese la letra: ")
+        for i in range (len(palabra)-1):
+            if (palabra[i] == letra):
+                print ("Acertaste...")
+                tablero[i] = letra
+                print (tablero)
+                esta = True
+            palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
+        print (palabra)
 
-  
-    if palabraAdivinada == palabra:
-        print ("Acertaste!")
-        intentos = chances
-    
+        print (palabraAdivinada)
+        for i in range (len(palabra)):
+            if palabra.lower() == palabraAdivinada.lower():
+                print ("Adivinaste!")
+                intentos = 6
+            
    
         
-    if (esta == False): #Aca esta el sumador de intentos
-        intentos += 1
-        restantes = chances - intentos 
-        dibujo = dibujaPersona (intentos)
-        print ("Te quedan", restantes,'intentos')
+        if (esta == False): #Aca esta el sumador de intentos
+            intentos += 1
+            restantes = chances - intentos 
+            dibujo = dibujaPersona (intentos)
+            print ("Te quedan", restantes,'intentos')
 
-datos = (nombre,intentos)
+    datos = (nombre,intentos)
 
-print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
+    print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
