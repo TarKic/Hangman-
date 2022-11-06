@@ -77,7 +77,7 @@ def generaArchivoPuntuacion (tupla):
     archivo = open ("puntuaciones.txt",'wt')
     nombre,puntos = tupla
     puntos = str(puntos)
-    archivo.write (nombre + puntos + '\n')
+    archivo.write (nombre  + " utilizo " + puntos + " intentos" + '\n')
     archivo.close()
 
 
@@ -124,5 +124,6 @@ while (yaJugaron < cantidadDeJugadores):
             print ("Te quedan", restantes,'intentos')
 
     datos = (nombre,intentos)
+    archivoPuntos = generaArchivoPuntuacion (datos)
 
     print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
