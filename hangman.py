@@ -85,6 +85,7 @@ def generaArchivoPuntuacion (tupla):
 
 cantidadDeJugadores = int (input ("Ingrese la cantidad de usuarios que jugaran: "))
 yaJugaron = 0
+
 while (yaJugaron < cantidadDeJugadores ):
     nombre = input ("Ingrese el nombre de la persona que jugara: ")
    
@@ -100,7 +101,8 @@ while (yaJugaron < cantidadDeJugadores ):
     while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
         esta = False 
         termino = False
-        print (tablero) 
+        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
+        print (palabraAdivinada) 
         letra = input ("Ingrese la letra: ")
         for i in range (len(palabra)-1):
             if (palabra[i] == letra):
@@ -108,8 +110,8 @@ while (yaJugaron < cantidadDeJugadores ):
                 esta = True
         if (esta == True):
             print ("Acertaste!")
-        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
         
+
 
         
         if (esta == False): #Aca esta el sumador de intentos
@@ -118,6 +120,7 @@ while (yaJugaron < cantidadDeJugadores ):
             dibujo = dibujaPersona (intentos)
             print ("Te quedan", restantes,'intentos')
       
+    
 
 
     datos = (nombre,intentos)
