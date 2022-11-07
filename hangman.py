@@ -101,15 +101,16 @@ while (yaJugaron < cantidadDeJugadores ):
     while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
         esta = False 
         termino = False
-        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero para que quede como palabra 
+        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero
         print (palabraAdivinada) 
+        
         letra = input ("Ingrese la letra: ")
-        for i in range (len(palabra)-1):
+        for i in range (len(palabra)-1):  #Si la letra forma parte de la palabra, se reemplazara el _ con la letra que se adivino, en caso de que sean 2 letras, se reemplazan en ambas posiciones
             if (palabra[i] == letra):
                 tablero[i] = letra
                 esta = True
         if (esta == True):
-            print ("Acertaste!")
+            print ("Acertaste la letra!")
         
 
 
