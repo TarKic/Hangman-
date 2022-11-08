@@ -74,11 +74,14 @@ def dibujaPersona (intentos): # Para dibujar la persona del ahorcado
                   "  |         \n"
                   "__|__\n")
    
-def generaArchivoPuntuacion (tupla): 
+def generaArchivoPuntuacion (tupla): #CORREGIR LA FUNCIÓN
     archivo = open ("puntuaciones.txt",'wt')
     nombre,puntos = tupla
     puntos = str(puntos)
-    archivo.write (nombre  + " utilizo " + puntos + " intentos" + '\n')
+    if puntos != "6":
+        archivo.write (nombre  + " fallo en " + puntos + " intentos" + '\n')
+    else:
+        archivo.write (nombre + " perdio... No logro adivinar la palabra")
     archivo.close()
 
 
@@ -97,20 +100,26 @@ while (yaJugaron < cantidadDeJugadores ):
     chances = 6
     intentos = 0
     print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
-    cantidadLetras = len(palabra) - 1
-    while (chances > intentos): #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
+    cantidadLetras = len(palabra)-1  #Variable para controlar las letras restantes que le queda adivinar al usuario
+    aciertos = 0
+    while (chances > intentos) and aciertos != cantidadLetras: #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
         esta = False 
         termino = False
         palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero
         print (palabraAdivinada) 
+        
         
         letra = input ("Ingrese la letra: ")
         for i in range (len(palabra)-1):  #Si la letra forma parte de la palabra, se reemplazara el _ con la letra que se adivino, en caso de que sean 2 letras, se reemplazan en ambas posiciones
             if (palabra[i] == letra):
                 tablero[i] = letra
                 esta = True
+                
+                
+
         if (esta == True):
             print ("Acertaste la letra!")
+            aciertos += 1
         
 
 
@@ -120,12 +129,15 @@ while (yaJugaron < cantidadDeJugadores ):
             restantes = chances - intentos 
             dibujo = dibujaPersona (intentos)
             print ("Te quedan", restantes,'intentos')
+        
+        datos = (nombre,intentos)
+        archivoPuntos = generaArchivoPuntuacion (datos)
       
     
 
 
-    datos = (nombre,intentos)
-    archivoPuntos = generaArchivoPuntuacion (datos)
-    if (restantes == 0 or intentos == 6):
-        print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
     
+    if (aciertos == cantidadLetras):
+        print ("Adivinaste! la palabra era",palabra)
+    else: 
+        print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
