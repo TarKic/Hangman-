@@ -79,7 +79,7 @@ def generaArchivoPuntuacion (tupla): #CORREGIR LA FUNCIÓN
     nombre,puntos = tupla
     puntos = str(puntos)
     if puntos != "6":
-        archivo.write (nombre  + " fallo en " + puntos + " intentos" + '\n')
+        archivo.write (nombre  + " fallo en " + puntos + " intentos" + ' por ende tiene ' '\n')
     else:
         archivo.write (nombre + " perdio... No logro adivinar la palabra")
     archivo.close()
