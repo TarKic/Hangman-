@@ -119,7 +119,8 @@ while (yaJugaron < cantidadDeJugadores ):
 
         if (esta == True):
             print ("Acertaste la letra!")
-            aciertos += 1
+            letrasRepetidas = palabra.count (letra)
+            aciertos += letrasRepetidas
         
 
 
