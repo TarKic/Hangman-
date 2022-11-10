@@ -1,6 +1,6 @@
 import random
 
-def buscaPalabras (): #Cargamos un archivos con palabras y acá, la traemos al programa principal como lista
+def buscaPalabras (): 
     try:
         arch = open ("palabras.txt", "rt")
     except IOError:
@@ -10,17 +10,17 @@ def buscaPalabras (): #Cargamos un archivos con palabras y acá, la traemos al p
         arch.close ()
         return palabras
 
-def generaRenglones (a): #Genera la cantidad de _ que tiene la palabra, simplemente un detalle estético
+def generaRenglones (a): 
     lista = []
     for i in range (len(a)-1):
         lista.append ("_") 
     return lista
 
-def seleccionaPalabra (listaImportada): #Busca, aleatoriamente la palabra que será utilizada para que el usuario la adivine
+def seleccionaPalabra (listaImportada): 
     palabraAdivinar = listaImportada[random.randint(0,len(lista) - 1)] 
     return palabraAdivinar
 
-def dibujaPersona (intentos): # Para dibujar la persona del ahorcado 
+def dibujaPersona (intentos):  
     if intentos == 1:
          print("   _____ \n"
                   "  |     |\n"
@@ -93,12 +93,14 @@ while (yaJugaron < cantidadDeJugadores ):
     nombre = input ("Ingrese el nombre de la persona que jugara: ")
    
     yaJugaron += 1 #Sumador para indicar que un jugador comenzó un nuevo juego
+    
     #Llamado a las funciones requeridas para el funcionamiento del programa
     lista = buscaPalabras ()
     palabra = seleccionaPalabra (lista)
     tablero = generaRenglones (palabra)
     chances = 6
     intentos = 0
+    
     print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
     cantidadLetras = len(palabra)-1  #Variable para controlar las letras restantes que le queda adivinar al usuario
     aciertos = 0
