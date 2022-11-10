@@ -13,7 +13,7 @@ def buscaPalabras ():
 def generaRenglones (a): 
     lista = []
     for i in range (len(a)-1):
-        lista.append ("_") 
+        lista.append ("_ ") 
     return lista
 
 def seleccionaPalabra (listaImportada): 
