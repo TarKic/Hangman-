@@ -74,7 +74,13 @@ def dibujaPersona (intentos):
                   "  |         \n"
                   "__|__\n")
 
-    
+def controlaLetras (letra):
+    listasUtilizadas = []
+    listasUtilizadas.append (letra + " , ")
+    if (len(listasUtilizadas) > 0):
+        print ("Ha utilizado las letras: ")
+        for i in range (len(listasUtilizadas)):
+            print (listasUtilizadas[i],end = '')
 
 cantidadDeJugadores = int (input ("Ingrese la cantidad de usuarios que jugaran: "))
 yaJugaron = 0
@@ -94,7 +100,6 @@ while (yaJugaron < cantidadDeJugadores ):
     intentos = 0
     usoIntentos = 0
     
-    print (palabra) #La dejo para ir probando si funciona el codigo, pero hay que sacar este print
     cantidadLetras = len(palabra)-1  #Variable para controlar las letras restantes que le queda adivinar al usuario
     aciertos = 0
     while (chances > intentos) and aciertos != cantidadLetras: #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
@@ -105,20 +110,27 @@ while (yaJugaron < cantidadDeJugadores ):
         
         
         letra = input ("Ingrese la letra: ")
+        control = controlaLetras (letra)
+        
         for i in range (len(palabra)-1):  #Si la letra forma parte de la palabra, se reemplazara el _ con la letra que se adivino, en caso de que sean 2 letras, se reemplazan en ambas posiciones
             if (palabra[i] == letra):
                 tablero[i] = letra
                 esta = True
+            
         
         if (esta == True):
-            print ("Acertaste la letra!")
+            print ("\nAcertaste la letra!")
             letrasRepetidas = palabra.count (letra)
             aciertos += letrasRepetidas
             usoIntentos += 1
+            print('\n')
+            dibujo = dibujaPersona (intentos)
+
         
         if (esta == False): #Aca esta el sumador de intentos
             intentos += 1
-            restantes = chances - intentos 
+            restantes = chances - intentos
+            print ("\n")
             dibujo = dibujaPersona (intentos)
             print ("Te quedan", restantes,'intentos')
         
