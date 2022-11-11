@@ -99,20 +99,20 @@ while (yaJugaron < cantidadDeJugadores ):
     chances = 6
     intentos = 0
     usoIntentos = 0
-    
-    cantidadLetras = len(palabra)-1  #Variable para controlar las letras restantes que le queda adivinar al usuario
+    cantidadLetras = len(palabra)-1  
     aciertos = 0
-    while (chances > intentos) and aciertos != cantidadLetras: #Mientras no llegue a los 5 intentos, sigue pidiendole letras y llena el tablero (los rengoles) con las letras correctas que el usuario va poniendo
+
+    while (chances > intentos) and aciertos != cantidadLetras: 
         esta = False 
         termino = False
-        palabraAdivinada = ''.join (tablero) #pasa a string la lista tablero
+        palabraAdivinada = ''.join (tablero) 
         print (palabraAdivinada) 
         
         
         letra = input ("Ingrese la letra: ")
         control = controlaLetras (letra)
         
-        for i in range (len(palabra)-1):  #Si la letra forma parte de la palabra, se reemplazara el _ con la letra que se adivino, en caso de que sean 2 letras, se reemplazan en ambas posiciones
+        for i in range (len(palabra)-1):   
             if (palabra[i] == letra):
                 tablero[i] = letra
                 esta = True
@@ -141,7 +141,7 @@ while (yaJugaron < cantidadDeJugadores ):
         print ("Adivinaste! la palabra era",palabra)
         listaPuntajes.append (usoIntentos)
     else: 
-        print ("Perdiste... La palabra era", palabra) #Mensaje si el usuario pasa los intentos sin poder adivinar la palabra
+        print ("Perdiste... La palabra era", palabra) 
         listaPuntajes.append (0)
 
     
