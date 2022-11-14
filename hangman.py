@@ -74,13 +74,7 @@ def dibujaPersona (intentos):
                   "  |         \n"
                   "__|__\n")
 
-def controlaLetras (letra):
-    listasUtilizadas = []
-    listasUtilizadas.append (letra + " , ")
-    if (len(listasUtilizadas) > 0):
-        print ("Ha utilizado las letras: ")
-        for i in range (len(listasUtilizadas)):
-            print (listasUtilizadas[i],end = '')
+
 
 cantidadDeJugadores = int (input ("Ingrese la cantidad de usuarios que jugaran: "))
 yaJugaron = 0
@@ -99,7 +93,8 @@ while (yaJugaron < cantidadDeJugadores ):
     chances = 6
     intentos = 0
     usoIntentos = 0
-    cantidadLetras = len(palabra)-1  
+    cantidadLetras = len(palabra)-1 
+    listasUtilizadas = [] 
     aciertos = 0
 
     while (chances > intentos) and aciertos != cantidadLetras: 
@@ -110,7 +105,12 @@ while (yaJugaron < cantidadDeJugadores ):
         
         
         letra = input ("Ingrese la letra: ")
-        control = controlaLetras (letra)
+        
+        listasUtilizadas.append (letra + " , ")
+        if (len(listasUtilizadas) > 0):
+            print ("Las letras que se usaron fueron: ")
+            for i in range (len(listasUtilizadas)):
+                print (listasUtilizadas[i],end = '')
         
         for i in range (len(palabra)-1):   
             if (palabra[i] == letra):
