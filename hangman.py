@@ -105,6 +105,7 @@ while (yaJugaron < cantidadDeJugadores ):
         
         
         letra = input ("Ingrese la letra: ")
+        letra = letra.lower()
         
         listasUtilizadas.append (letra + " , ")
         if (len(listasUtilizadas) > 0):
